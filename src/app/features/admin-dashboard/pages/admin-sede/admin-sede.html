@@ -1,0 +1,59 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Sedes</h2>
+    <div class="header-controls">
+      <input type="text" placeholder="Buscar sede..." [(ngModel)]="filtroBusqueda" (input)="onBusquedaChange()">
+      <button class="btn-primary" (click)="abrir()">+ Nueva Sede</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de Sede</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of paginados">
+          <td>{{ s.idSede }}</td>
+          <td>{{ s.nombreSede }}</td>
+          <td>{{ s.direccionSede }}</td>
+          <td>
+            <button class="btn-icon" (click)="abrir(s)"><i class="fas fa-edit" style="color: #004a99;"></i></button>
+            <button class="btn-icon" (click)="eliminar(s.idSede!)"><i class="fas fa-trash" style="color: #d33;"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button class="btn-page" [disabled]="paginaActual === 1" (click)="paginaActual = paginaActual - 1">Anterior</button>
+    <span>Página {{ paginaActual }}</span>
+    <button class="btn-page" [disabled]="paginados.length < itemsPorPagina" (click)="paginaActual = paginaActual + 1">Siguiente</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal-content">
+    <h3>{{ form.idSede ? 'Editar' : 'Nueva' }} Sede</h3>
+    <form (submit)="guardar()">
+      <div class="form-group">
+        <label>Nombre de la Sede</label>
+        <input type="text" [(ngModel)]="form.nombreSede" name="nombre" required>
+      </div>
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" [(ngModel)]="form.direccionSede" name="dir" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancelar" (click)="mostrarModal = false">Cancelar</button>
+        <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

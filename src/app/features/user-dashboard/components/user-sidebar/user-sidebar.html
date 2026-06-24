@@ -1,0 +1,28 @@
+<!-- Backdrop móvil -->
+@if (isOpen) {
+  <div class="sidebar-backdrop" (click)="close()"></div>
+}
+
+<aside class="user-sidebar" [class.open]="isOpen">
+
+  <!-- Botón cerrar (solo móvil) -->
+  <button class="sidebar-close-btn" (click)="close()" aria-label="Cerrar menú">
+    <i class="fas fa-times"></i>
+  </button>
+
+  <nav class="menu">
+    <a routerLink="inicio" routerLinkActive="active" (click)="close()">
+      <i class="fas fa-home"></i> <span>INICIO</span>
+    </a>
+    <a routerLink="mis-reservas" routerLinkActive="active" (click)="close()">
+      <i class="fas fa-book-open"></i> <span>MIS RESERVAS</span>
+    </a>
+    <a routerLink="nueva-reserva" routerLinkActive="active" (click)="close()">
+      <i class="fas fa-calendar-plus"></i> <span>NUEVA RESERVA</span>
+    </a>
+    <a routerLink="reportar-incidencia" routerLinkActive="active" (click)="close()">
+      <i class="fas fa-exclamation-triangle"></i> <span>REPORTAR INCIDENCIA</span>
+    </a>
+  </nav>
+
+</aside>

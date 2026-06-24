@@ -1,0 +1,73 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Usuarios</h2>
+    <input type="text" [(ngModel)]="filtroBusqueda" (input)="filtrar()" placeholder="Buscar..." class="search-input">
+  </div>
+
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Código</th>
+            <th>Rol</th>
+            <th>Sede</th>
+            <th>Carrera</th> <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of usuariosPaginados">
+            <td>{{ u.nombreUsuario }} {{ u.apellidoUsuario }}</td>
+            <td>{{ u.correoInstitucional }}</td>
+            <td>{{ u.codigoInstitucional }}</td>
+            <td>{{ u.rol?.nombreRol }}</td>
+            <td>{{ u.sede?.nombreSede }}</td>
+            <td>{{ u.carrera?.nombreCarrera }}</td> <td>
+              <button class="btn-icon" (click)="abrirModal(u)"><i class="fas fa-edit" style="color: #004a99;"></i></button>
+              <button class="btn-icon" (click)="eliminar(u.idUsuario!)"><i class="fas fa-trash" style="color: #d33;"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+      <span>Página {{ paginaActual }} de {{ totalPaginas || 1 }}</span>
+      <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual >= totalPaginas">Siguiente</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <h3>Editar Usuario</h3>
+      <form (submit)="guardarUsuario()">
+        <input type="text" [(ngModel)]="usuarioForm.nombreUsuario" name="nombre" placeholder="Nombre" required>
+        <input type="text" [(ngModel)]="usuarioForm.apellidoUsuario" name="apellido" placeholder="Apellido" required>
+        <input type="email" [(ngModel)]="usuarioForm.correoInstitucional" name="email" placeholder="Correo" required>
+        <input type="text" [(ngModel)]="usuarioForm.codigoInstitucional" name="codigo" placeholder="Código" required>
+        
+        <select [(ngModel)]="usuarioForm.rol.idRol" name="rol" required>
+          <option value="" disabled>Seleccione Rol</option>
+          <option *ngFor="let r of roles" [value]="r.idRol">{{ r.nombreRol }}</option>
+        </select>
+
+        <select [(ngModel)]="usuarioForm.sede.idSede" name="sede" required>
+          <option value="" disabled>Seleccione Sede</option>
+          <option *ngFor="let s of sedes" [value]="s.idSede">{{ s.nombreSede }}</option>
+        </select>
+
+        <select [(ngModel)]="usuarioForm.carrera.idCarrera" name="carrera" required>
+          <option value="" disabled>Seleccione Carrera</option>
+          <option *ngFor="let c of carreras" [value]="c.idCarrera">{{ c.nombreCarrera }}</option>
+        </select>
+        
+        <div class="modal-actions">
+          <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

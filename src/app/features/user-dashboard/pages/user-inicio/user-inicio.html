@@ -1,0 +1,109 @@
+<div class="inicio-container">
+
+  <!-- Banner de bienvenida Cibertec -->
+  <div class="welcome-banner">
+    <div class="welcome-icon">
+      <i class="fas fa-thumbs-up"></i>
+    </div>
+    <div class="welcome-text">
+      <p class="greeting"><em>Hola, </em> <strong>{{ authService.getUsuarioLogueado()?.nombreUsuario }} {{ authService.getUsuarioLogueado()?.apellidoUsuario }}</strong>.</p>
+      <p class="subtitle">Una experiencia digital más sencilla y atractiva en tu nuevo <strong>portal del estudiante</strong>.</p>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    
+    <!-- Columna Izquierda: KPIs de Reservas -->
+    <div class="main-column">
+      
+      <div class="cibertec-card">
+        <div class="card-header">
+          <div class="header-title">
+            <i class="far fa-window-maximize"></i>
+            <h3>ESTADO DE MIS RESERVAS</h3>
+          </div>
+          <a class="ver-todo" (click)="irAMisReservas()">VER TODO <i class="fas fa-chevron-right"></i></a>
+        </div>
+        
+        <div class="kpi-list">
+          <!-- Headers -->
+          <div class="kpi-header">
+            <span>Estado</span>
+            <span>Cantidad</span>
+          </div>
+
+          <!-- Items -->
+          <div class="kpi-item">
+            <div class="kpi-info">
+              <span class="badge pendiente">PENDIENTE</span>
+              <span class="kpi-desc">Reservas por aprobar</span>
+            </div>
+            <div class="kpi-value grey-box">{{ pendientes }}</div>
+          </div>
+
+          <div class="kpi-item">
+            <div class="kpi-info">
+              <span class="badge confirmada">CONFIRMADA</span>
+              <span class="kpi-desc">Reservas aprobadas</span>
+            </div>
+            <div class="kpi-value grey-box">{{ confirmadas }}</div>
+          </div>
+
+          <div class="kpi-item">
+            <div class="kpi-info">
+              <span class="badge cancelada">CANCELADA</span>
+              <span class="kpi-desc">Reservas anuladas</span>
+            </div>
+            <div class="kpi-value grey-box">{{ canceladas }}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Columna Derecha: Acciones Rápidas / Contacto -->
+    <div class="side-column">
+      
+      <div class="cibertec-card">
+        <div class="card-header">
+          <div class="header-title">
+            <i class="far fa-calendar-alt"></i>
+            <h3>MIS ÚLTIMAS RESERVAS</h3>
+          </div>
+        </div>
+        
+        <div class="reservas-list">
+          @if (cargando) {
+            <div class="empty-state">Cargando...</div>
+          } @else if (ultimasReservas.length === 0) {
+            <div class="empty-state">No tienes reservas recientes.</div>
+          } @else {
+            @for (r of ultimasReservas; track r.idReserva) {
+              <div class="reserva-mini-card">
+                <div class="reserva-time">
+                  {{ r.fechaReserva }}
+                </div>
+                <div class="reserva-detail">
+                  <p class="reserva-title">{{ r.tipoReserva.descripcion }}</p>
+                  <p class="reserva-meta">Aula <span class="aula-badge">{{ r.aula.codigoAula }}</span></p>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- Contacto Card -->
+      <div class="contacto-card">
+        <span class="nuevo-badge">¡NUEVO!</span>
+        <h4>Contacto Cibertec</h4>
+        <p>¿Tienes un inconveniente? Ingresa al sistema Contacto Cibertec para ayudarte.</p>
+        <a href="https://contacto.cibertec.edu.pe/open.php" target="_blank" class="btn-reportar" style="text-decoration: none; width: fit-content;">
+          Crear ticket <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>

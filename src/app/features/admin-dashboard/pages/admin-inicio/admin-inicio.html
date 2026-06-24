@@ -1,0 +1,65 @@
+<div class="inicio-container">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="icon-box warning"><i class="fas fa-clock"></i></div>
+      <div>
+        <h3>Pendientes</h3>
+        <p class="number">{{ stats?.reservasPendientes || 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="icon-box success"><i class="fas fa-check-circle"></i></div>
+      <div>
+        <h3>Confirmadas</h3>
+        <p class="number">{{ stats?.reservasAprobadas || 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="icon-box info"><i class="fas fa-users"></i></div>
+      <div>
+        <h3>Usuarios</h3>
+        <p class="number">{{ stats?.totalUsuarios || 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="icon-box primary"><i class="fas fa-school"></i></div>
+      <div>
+        <h3>Aulas</h3>
+        <p class="number">{{ stats?.totalAulas || 0 }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <h2>Últimas 10 Reservas</h2>
+    <table class="dark-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Sede</th>
+          <th>Aula</th>
+          <th>Horario</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of reservas">
+          <td>{{ r.usuario.nombreUsuario }} {{ r.usuario.apellidoUsuario }}</td>
+          <td>{{ r.sede.nombreSede }}</td>
+          <td>{{ r.aula.codigoAula }}</td>
+          <td>{{ r.horario.horaInicio }} - {{ r.horario.horaSalida }}</td>
+          <td>{{ r.tipoReserva.descripcion }}</td>
+          <td>
+            <span class="badge" [ngClass]="r.estadoReserva.descripcion | lowercase">
+              {{ r.estadoReserva.descripcion }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

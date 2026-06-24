@@ -1,0 +1,157 @@
+/* ===== SIDEBAR — Cibertec Design System ===== */
+.user-sidebar {
+  width: 256px;
+  background: #ffffff;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e2e8f0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.02);
+  height: 100%;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+/* ── Botón cerrar (oculto en desktop) ── */
+.sidebar-close-btn {
+  display: none;
+}
+
+/* ── Menu Links ── */
+.menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background 0.15s ease, color 0.15s ease;
+  border-left: 4px solid transparent;
+}
+
+.menu a i {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.menu a:hover {
+  background: #f8fafc;
+  color: #334155;
+}
+
+/* Active State */
+.menu a.active {
+  background: #f8fafc;
+  color: #334155;
+  border-left-color: #16a34a;
+}
+
+.menu a.active i {
+  color: #16a34a;
+}
+
+/* ── Backdrop móvil ── */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── Footer ── */
+.sidebar-footer {
+  padding: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0;
+  background: transparent;
+  color: #64748b;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.logout-btn i {
+  font-size: 16px;
+}
+
+.logout-btn:hover {
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+/* ============================================================
+   RESPONSIVE — Móvil (sidebar como drawer)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Backdrop */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 99;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Sidebar oculto por defecto */
+  .user-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+  }
+
+  /* Abierto */
+  .user-sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Botón cerrar visible en móvil */
+  .sidebar-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 16px 20px 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #64748b;
+    font-size: 20px;
+    transition: color 0.2s;
+  }
+
+  .sidebar-close-btn:hover {
+    color: #dc2626;
+  }
+}
+
+

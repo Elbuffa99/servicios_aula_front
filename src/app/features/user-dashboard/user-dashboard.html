@@ -1,0 +1,58 @@
+<div class="user-layout">
+  <!-- Topbar -->
+  <header class="topbar">
+    <!-- Botón hamburguesa (solo móvil) -->
+    <button class="hamburger-btn" (click)="toggleSidebar()" aria-label="Abrir menú">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="topbar-logo">
+      <img src="/LogoCibertec.png" alt="Cibertec" class="logo">
+    </div>
+    <div class="topbar-links">
+      <a href="https://outlook.office.com/mail/" target="_blank" class="topbar-link">
+        <i class="fas fa-envelope-open-text"></i> <span class="link-text">CORREO</span>
+      </a>
+      <a href="https://cibertec.blackboard.com/webapps/login/" target="_blank" class="topbar-link">
+        <i class="fas fa-chalkboard-teacher"></i> <span class="link-text">AULA VIRTUAL</span>
+      </a>
+    </div>
+    
+    <div class="topbar-right">
+      <!-- Usuario Dropdown -->
+      <div class="topbar-user-wrapper">
+        <div class="topbar-user" (click)="toggleDropdown()">
+          <div class="bell-container">
+            <i class="far fa-bell bell-icon"></i>
+          </div>
+          <span class="user-name">{{ usuario?.nombreUsuario }} {{ usuario?.apellidoUsuario }}</span>
+          <div class="user-avatar-small">
+            <i class="far fa-user"></i>
+          </div>
+          <i class="fas fa-chevron-down down-icon"></i>
+        </div>
+        
+        @if (dropdownOpen) {
+          <div class="user-dropdown-menu">
+            <button (click)="logout()" class="dropdown-item text-danger">
+              <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-body">
+    <app-user-sidebar
+      [isOpen]="sidebarOpen"
+      (closeSidebar)="sidebarOpen = false">
+    </app-user-sidebar>
+
+    <main class="dashboard-main">
+      <div class="content-area">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>

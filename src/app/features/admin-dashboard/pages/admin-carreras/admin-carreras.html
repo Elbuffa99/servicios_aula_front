@@ -1,0 +1,53 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Carreras</h2>
+    <div class="header-controls">
+      <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="filtroBusqueda" (input)="onBusquedaChange()">
+      <button class="btn-primary" (click)="abrir()">+ Nueva Carrera</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de la Carrera</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of paginados">
+          <td>{{ c.idCarrera }}</td>
+          <td>{{ c.nombreCarrera }}</td>
+          <td>
+            <button class="btn-icon" (click)="abrir(c)"><i class="fas fa-edit" style="color: #004a99;"></i></button>
+            <button class="btn-icon" (click)="eliminar(c.idCarrera!)"><i class="fas fa-trash" style="color: #d33;"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="pagination">
+    <button class="btn-page" [disabled]="paginaActual === 1" (click)="paginaActual = paginaActual - 1">Anterior</button>
+    <span>Página {{ paginaActual }}</span>
+    <button class="btn-page" [disabled]="paginados.length < itemsPorPagina" (click)="paginaActual = paginaActual + 1">Siguiente</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal-content">
+    <h3>{{ form.idCarrera ? 'Editar' : 'Nueva' }} Carrera</h3>
+    <form (ngSubmit)="guardar()">
+      <div class="form-group">
+        <label>Nombre de la Carrera</label>
+        <input type="text" [(ngModel)]="form.nombreCarrera" name="nombreCarrera" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancelar" (click)="mostrarModal = false">Cancelar</button>
+        <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

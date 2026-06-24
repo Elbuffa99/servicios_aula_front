@@ -1,0 +1,22 @@
+<div class="admin-layout">
+  <app-sidebar></app-sidebar> 
+
+  <main class="dashboard-main">
+    
+    <header class="top-header">
+       <div class="user-card">
+        <div class="user-info">
+          <span class="user-name">{{ admin?.nombreUsuario }} {{ admin?.apellidoUsuario }}</span>
+          <span class="user-meta">Correo: {{ admin?.correoInstitucional }} | Rol: {{ admin?.rol }}</span>
+        </div>
+        <div class="user-avatar">
+          {{ admin?.nombreUsuario?.charAt(0) }}{{ admin?.apellidoUsuario?.charAt(0) }}
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

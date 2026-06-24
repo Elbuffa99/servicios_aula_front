@@ -1,0 +1,293 @@
+/* ===== CIBERTEC DASHBOARD STYLES ===== */
+.inicio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================================
+   Banner Bienvenida
+   ========================================= */
+.welcome-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: transparent;
+  margin-bottom: 8px;
+}
+
+.welcome-icon {
+  background: #16a34a;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.welcome-text .greeting {
+  color: #004b7b;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.welcome-text .greeting strong {
+  font-weight: 700;
+}
+
+.welcome-text .subtitle {
+  color: #334155;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* =========================================
+   Grilla principal
+   ========================================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================================
+   Tarjetas Cibertec
+   ========================================= */
+.cibertec-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #004b7b;
+}
+
+.header-title h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.ver-todo {
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.2s;
+}
+
+.ver-todo:hover {
+  opacity: 0.8;
+}
+
+/* =========================================
+   KPIs de Reservas
+   ========================================= */
+.kpi-list {
+  padding: 16px 24px;
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.kpi-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.kpi-item:last-child {
+  border-bottom: none;
+}
+
+.kpi-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kpi-desc {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.grey-box {
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 6px;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* =========================================
+   Últimas Reservas Mini
+   ========================================= */
+.reservas-list {
+  padding: 16px 24px;
+}
+
+.reserva-mini-card {
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.reserva-mini-card:last-child {
+  border-bottom: none;
+}
+
+.reserva-time {
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.reserva-title {
+  color: #004b7b;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 4px 0;
+}
+
+.reserva-meta {
+  color: #64748b;
+  font-size: 12px;
+  margin: 0;
+}
+
+.aula-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* =========================================
+   Contacto Card
+   ========================================= */
+.contacto-card {
+  background: #ecfdf5; /* Verde muy claro */
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+
+.nuevo-badge {
+  background: #16a34a;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.contacto-card h4 {
+  color: #064e3b;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.contacto-card p {
+  color: #065f46;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.btn-reportar {
+  background: transparent;
+  border: 1px solid #10b981;
+  color: #065f46;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reportar:hover {
+  background: #10b981;
+  color: white;
+}
+
+/* =========================================
+   Badges (Estados)
+   ========================================= */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge.pendiente {
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.badge.confirmada {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge.cancelada {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge.rechazada {
+  background-color: #f1f5f9;
+  color: #475569;
+}

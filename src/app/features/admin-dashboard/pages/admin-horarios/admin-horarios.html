@@ -1,0 +1,63 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Horarios</h2>
+    <div class="header-controls">
+      <select [(ngModel)]="filtroTurno" (change)="filtrar()">
+        <option value="">Todos los turnos</option>
+        <option value="MAÑANA">Mañana</option>
+        <option value="TARDE">Tarde</option>
+        <option value="NOCHE">Noche</option>
+      </select>
+      <button class="btn-primary" (click)="abrir()">+ Nuevo Horario</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr><th>Inicio</th><th>Fin</th><th>Turno</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let h of paginados">
+            <td>{{ h.horaInicio }}</td>
+            <td>{{ h.horaSalida }}</td>
+            <td>{{ h.turno }}</td>
+            <td>
+              <button class="btn-icon" (click)="abrir(h)"><i class="fas fa-edit" style="color: #004a99;"></i></button>
+              <button class="btn-icon" (click)="eliminar(h.idHorario)"><i class="fas fa-trash" style="color: #d33;"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button class="btn-page" [disabled]="paginaActual === 1" (click)="paginaActual = paginaActual - 1">Anterior</button>
+      <span>Página {{ paginaActual }}</span>
+      <button class="btn-page" [disabled]="paginados.length < porPagina" (click)="paginaActual = paginaActual + 1">Siguiente</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <h3>{{ form.idHorario ? 'Editar' : 'Nuevo' }} Horario</h3>
+      <form (ngSubmit)="guardar()">
+        <label>Hora Inicio</label>
+        <input type="time" [(ngModel)]="form.horaInicio" name="ini" required>
+        <label>Hora Salida</label>
+        <input type="time" [(ngModel)]="form.horaSalida" name="fin" required>
+        <label>Turno</label>
+        <select [(ngModel)]="form.turno" name="tur" required>
+          <option value="MAÑANA">MAÑANA</option>
+          <option value="TARDE">TARDE</option>
+          <option value="NOCHE">NOCHE</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancelar" (click)="mostrarModal = false">Cancelar</button>
+          <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

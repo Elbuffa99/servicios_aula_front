@@ -1,0 +1,117 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  background-color: #f4f7fa;
+  padding: 20px;
+}
+
+form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+h2 {
+  color: #002d72;
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 26px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Aplicamos estilos a inputs y al select de sedes */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.password-container input {
+  margin-bottom: 0;
+  padding-right: 45px;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  z-index: 10;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: #002d72;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #0045a5;
+}
+
+p {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+  color: #666;
+}
+
+a {
+  color: #002d72;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-logo-container {
+  padding: 20px;
+  width: 100%;
+  background-color: #f4f7fa;
+}
+
+.header-logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Responsive: En pantallas muy pequeñas, las columnas se apilan */
+@media (max-width: 480px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,39 @@
+.aulas-container { padding: 40px; background-color: #f8f9fa; min-height: 100vh; }
+
+.tabs-header { display: flex; gap: 40px; border-bottom: 3px solid #004a99; margin-bottom: 40px; padding-bottom: 10px; }
+.tabs-header button { background: none; border: none; font-size: 1.1rem; color: #6c757d; cursor: pointer; padding: 10px; transition: 0.3s; }
+.tabs-header button.active { color: #004a99; font-weight: 800; border-bottom: 3px solid #004a99; margin-bottom: -13px; }
+
+.dashboard-cards { 
+  display: grid; 
+  /* Esto permite que se ajusten automáticamente de forma profesional */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  gap: 15px; 
+  margin-bottom: 40px; 
+}
+
+.card { padding: 20px; border-radius: 12px; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 6px solid #004a99; }
+.card.card-aprobadas { border-left-color: #28a745; }
+.card.card-pendientes { border-left-color: #ffc107; }
+.card.card-rechazadas { border-left-color: #dc3545; }
+.card.card-canceladas { border-left-color: #6c757d; } /* Color gris para canceladas */
+
+.number { font-size: 1.8rem; font-weight: 900; color: #143968; margin: 5px 0 0 0; }
+.table-container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+.table-responsive { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.data-table th { background-color: #004a99; color: white; padding: 18px; text-align: left; }
+.data-table td { padding: 18px; border-bottom: 1px solid #eee; color: #495057; }
+
+.badge { padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+.badge-pendiente { background-color: #fff3cd; color: #856404; }
+.badge-aprobado { background-color: #d4edda; color: #155724; }
+.badge-rechazado { background-color: #f8d7da; color: #721c24; }
+
+.header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.btn-pdf { background: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.pagination { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+.btn-page { padding: 10px 20px; border: 1px solid #004a99; background: white; color: #004a99; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-page:disabled { border-color: #ccc; color: #ccc; cursor: not-allowed; }
+
+

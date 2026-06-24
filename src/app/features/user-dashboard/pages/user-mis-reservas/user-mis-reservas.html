@@ -1,0 +1,99 @@
+<div class="mis-reservas-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Mis Reservas</h1>
+      <p class="page-subtitle">Historial completo de tus solicitudes de aula</p>
+    </div>
+  </div>
+
+  <!-- Filtro -->
+  <div class="filtros-bar">
+    <label class="filtro-label">Filtrar por estado:</label>
+    <div class="filtro-tabs">
+      @for (estado of estados; track estado) {
+        <button
+          [class]="'tab-btn ' + (filtroEstado === estado ? 'activo ' + estado.toLowerCase() : '')"
+          (click)="filtroEstado = estado; filtrar()">
+          {{ estado }}
+        </button>
+      }
+    </div>
+    <span class="total-badge">{{ reservasMostradas.length }} reserva(s)</span>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    @if (cargando) {
+      <div class="loading-state">
+        <i class="fas fa-spinner fa-spin"></i> Cargando reservas...
+      </div>
+    } @else if (reservasMostradas.length === 0) {
+      <div class="empty-state">
+        <i class="fas fa-calendar-times"></i>
+        <p>No hay reservas con el filtro seleccionado.</p>
+      </div>
+    } @else {
+      <table class="dark-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Aula</th>
+            <th>Sede</th>
+            <th>Fecha</th>
+            <th>Horario</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of reservasPaginadas; track r.idReserva) {
+            <tr>
+              <td class="id-col">{{ r.idReserva }}</td>
+              <td><strong>{{ r.aula.codigoAula }}</strong></td>
+              <td>{{ r.sede.nombreSede }}</td>
+              <td>{{ r.fechaReserva }}</td>
+              <td>{{ r.horario.horaInicio }} - {{ r.horario.horaSalida }}</td>
+              <td>{{ r.tipoReserva.descripcion }}</td>
+              <td>
+                <span [class]="getBadgeClass(r.estadoReserva.descripcion)">
+                  {{ r.estadoReserva.descripcion }}
+                </span>
+              </td>
+              <td>
+                @if (puedeCanselar(r)) {
+                  <button class="btn-cancelar" (click)="cancelar(r)" [disabled]="procesando">
+                    <i class="fas fa-ban"></i> Cancelar
+                  </button>
+                } @else {
+                  <span class="sin-accion">—</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Paginación -->
+      @if (totalPaginas > 1) {
+        <div class="paginacion">
+          <button class="pag-btn" (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          @for (p of paginas; track p) {
+            <button
+              [class]="'pag-btn ' + (p === paginaActual ? 'activa' : '')"
+              (click)="cambiarPagina(p)">
+              {{ p }}
+            </button>
+          }
+          <button class="pag-btn" (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      }
+    }
+  </div>
+
+</div>

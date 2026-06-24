@@ -1,0 +1,35 @@
+.aulas-container { padding: 20px; animation: fadeIn 0.3s ease-in-out; }
+
+/* Header */
+.header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+.header-actions h2 { color: #333; font-size: 24px; margin: 0; }
+.header-actions input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 250px; }
+.btn-primary { background-color: #004a99; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+/* Tabla Responsiva */
+.table-card { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); overflow-x: auto; }
+.data-table { width: 100%; min-width: 600px; border-collapse: collapse; }
+.data-table thead { background-color: #004a99 !important; color: white !important; }
+.data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+.data-table tbody tr:hover { background-color: #f5f7fa; }
+
+/* Acciones e iconos */
+.btn-icon { background: none; border: none; cursor: pointer; padding: 5px 10px; font-size: 16px; transition: transform 0.2s; }
+.btn-icon:hover { transform: scale(1.2); }
+
+/* Paginación */
+.pagination { display: flex; justify-content: center; align-items: center; padding: 15px; gap: 10px; }
+.btn-page { padding: 8px 16px; border: 1px solid #004a99; background: #fff; color: #004a99; border-radius: 4px; cursor: pointer; }
+.btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Modal */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.modal-content input, .modal-content select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.btn-cancelar { background: #f8f9fa; border: 1px solid #ddd; padding: 10px 15px; border-radius: 6px; cursor: pointer; }
+.btn-guardar { background: #004a99; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.btn-guardar:disabled { background: #668bb3; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) { .header-actions { flex-direction: column; align-items: flex-start; } }

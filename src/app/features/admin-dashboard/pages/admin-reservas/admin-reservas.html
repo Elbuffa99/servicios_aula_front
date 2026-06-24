@@ -1,0 +1,65 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Reservas</h2>
+    <div class="filtros">
+      <select [(ngModel)]="filtroEstado" (change)="aplicarFiltros()">
+        <option value="">Todos los Estados</option>
+        <option value="PENDIENTE">Pendiente</option>
+        <option value="APROBADA">Aprobado</option>
+        <option value="RECHAZADA">Rechazado</option>
+        <option value="CANCELADA">Cancelado</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Usuario</th>
+          <th>Aula</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of paginados">
+          <td>{{ r.fechaReserva }}</td>
+          <td>{{ r.usuario?.nombreUsuario }} {{ r.usuario?.apellidoUsuario }}</td>
+          <td>{{ r.aula?.codigoAula }}</td>
+          <td><strong>{{ r.estadoReserva?.descripcion }}</strong></td>
+          <td>
+            <button type="button" class="btn-icon" (click)="verIntegrantes(r.idReserva)" title="Ver Integrantes">
+              <i class="fas fa-users" style="color: #6c757d;"></i>
+            </button>
+            <button type="button" class="btn-icon" [disabled]="esCancelada(r)" (click)="cambiarEstado(r, 'aprobar')" title="Aprobar">
+              <i class="fas fa-check" [style.color]="esCancelada(r) ? '#ccc' : 'green'"></i>
+            </button>
+            <button type="button" class="btn-icon" [disabled]="esCancelada(r)" (click)="cambiarEstado(r, 'rechazar')" title="Rechazar">
+              <i class="fas fa-times" [style.color]="esCancelada(r) ? '#ccc' : 'red'"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button type="button" class="btn-page" [disabled]="paginaActual === 1" (click)="paginaActual = paginaActual - 1">Anterior</button>
+    <span class="page-info">Página {{ paginaActual }}</span>
+    <button type="button" class="btn-page" [disabled]="paginados.length < porPagina" (click)="paginaActual = paginaActual + 1">Siguiente</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModalIntegrantes">
+  <div class="modal-content">
+    <h3>Integrantes de la Reserva</h3>
+    <ul>
+      <li *ngFor="let integrante of listaIntegrantes">
+        {{ integrante.nombreAlumno }} ({{ integrante.codigoAlumno }})
+      </li>
+    </ul>
+    <button type="button" class="btn-cancelar" (click)="mostrarModalIntegrantes = false">Cerrar</button>
+  </div>
+</div>

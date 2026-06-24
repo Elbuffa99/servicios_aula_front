@@ -1,0 +1,115 @@
+<div class="nueva-reserva-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Nueva Reserva</h1>
+      <p class="page-subtitle">Completa el formulario para solicitar un aula</p>
+    </div>
+  </div>
+
+  @if (cargandoCatalogos) {
+    <div class="loading-state">
+      <i class="fas fa-spinner fa-spin"></i> Cargando formulario...
+    </div>
+  } @else {
+    <div class="form-card">
+      <div class="sections-wrapper">
+
+        <div class="form-section">
+          <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> 1. ¿Dónde?</h2>
+          <div class="form-grid-col">
+            <div class="form-group">
+              <label for="sede">Sede <span class="required">*</span></label>
+              <select id="sede" class="form-control" [(ngModel)]="form.idSede" (change)="onSedeChange()">
+                <option value="">— Selecciona una sede —</option>
+                @for (s of sedes; track s.idSede) {
+                  <option [value]="s.idSede">{{ s.nombreSede }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="aula">Aula <span class="required">*</span></label>
+              <select id="aula" class="form-control" [(ngModel)]="form.idAula" [disabled]="!form.idSede">
+                <option value="">— Primero selecciona sede —</option>
+                @for (a of aulasFiltradas; track a.idAula) {
+                  <option [value]="a.idAula">{{ a.codigoAula }} (Cap. {{ a.capacidad }})</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="section-title"><i class="fas fa-clock"></i> 2. ¿Cuándo?</h2>
+          <div class="form-grid-col">
+            <div class="form-group">
+              <label for="fechaReserva">Fecha <span class="required">*</span></label>
+              <input id="fechaReserva" type="date" class="form-control" [(ngModel)]="form.fechaReserva" [min]="fechaMinima" [max]="fechaMaxima">
+            </div>
+            <div class="form-group">
+              <label for="horario">Horario <span class="required">*</span></label>
+              <select id="horario" class="form-control" [(ngModel)]="form.idHorario">
+                <option value="">— Selecciona un horario —</option>
+                @for (h of horarios; track h.idHorario) {
+                  <option [value]="h.idHorario">{{ h.horaInicio }} - {{ h.horaSalida }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="section-title"><i class="fas fa-list-ul"></i> 3. Detalles</h2>
+          <div class="form-group">
+            <label for="tipoReserva">Motivo de Reserva <span class="required">*</span></label>
+            <select id="tipoReserva" class="form-control" [(ngModel)]="form.idTipoReserva">
+              <option value="">— Selecciona el motivo —</option>
+              @for (t of tiposReserva; track t.idTipoReserva) {
+                <option [value]="t.idTipoReserva">{{ t.descripcion }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="cancelar()" [disabled]="procesando">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()" [disabled]="procesando">
+          @if (procesando) { <i class="fas fa-spinner fa-spin"></i> Procesando... } 
+          @else { <i class="fas fa-paper-plane"></i> {{ (form.idTipoReserva == 1) ? 'Continuar con Integrantes' : 'Enviar Solicitud' }} }
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+@if (mostrarModalGrupal) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Integrantes del Grupo</h3>
+        <button class="close-btn" (click)="mostrarModalGrupal = false">×</button>
+      </div>
+      <div class="modal-body">
+        @for (int of listaIntegrantes; track $index) {
+          <div class="member-row-card">
+            <div class="member-inputs">
+              <input class="form-control" [(ngModel)]="int.codigoAlumno" placeholder="Código">
+              <input class="form-control" [(ngModel)]="int.nombreAlumno" placeholder="Nombre completo">
+            </div>
+            <button class="btn-remove-member" (click)="eliminarIntegrante($index)" title="Quitar integrante">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        }
+        <button class="btn-add-dashed" (click)="agregarIntegrante()">
+          <i class="fas fa-plus"></i> Agregar otro integrante
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="mostrarModalGrupal = false">Cancelar</button>
+        <button class="btn-primary" (click)="ejecutarReserva(listaIntegrantes)">Confirmar y Enviar</button>
+      </div>
+    </div>
+  </div>
+}

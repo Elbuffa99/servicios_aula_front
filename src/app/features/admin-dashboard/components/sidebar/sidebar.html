@@ -1,0 +1,28 @@
+<button class="toggle-btn-mobile" (click)="toggleSidebar()">
+  <i class="fa fa-bars"></i>
+</button>
+
+<aside class="sidebar" [class.open]="isMobileMenuOpen">
+  <div class="logo-area">
+    <img src="/LogoLetraB.png" alt="Cibertec" class="logo">
+  </div>
+
+  <nav class="menu" (click)="closeMobileMenu()">
+    <a routerLink="inicio" routerLinkActive="active"><i class="fa fa-home"></i> Inicio</a>
+    <a routerLink="aulas" routerLinkActive="active"><i class="fa fa-chalkboard"></i> Aulas</a>
+    <a routerLink="usuarios" routerLinkActive="active"><i class="fa fa-users"></i> Usuarios</a>
+    <a routerLink="reservas" routerLinkActive="active"><i class="fa fa-calendar-check"></i> Reservas</a>
+    <a routerLink="sede" routerLinkActive="active"><i class="fa fa-building"></i> Sede</a>
+    <a routerLink="tipo-aula" routerLinkActive="active"><i class="fa fa-tags"></i> Tipo Aula</a>
+    <a routerLink="carreras" routerLinkActive="active"><i class="fa fa-graduation-cap"></i> Carrera</a>
+    <a routerLink="clases" routerLinkActive="active"><i class="fa fa-book"></i> Clases</a>
+    <a routerLink="horarios" routerLinkActive="active"><i class="fa fa-clock"></i> Horarios</a>
+    <a routerLink="historial" routerLinkActive="active"><i class="fa fa-history"></i> Historial</a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button (click)="logout()" class="logout-btn">
+      <i class="fa fa-sign-out"></i> Cerrar Sesión
+    </button>
+  </div>
+</aside>

@@ -1,0 +1,125 @@
+<div class="incidencia-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Reportar Incidencia</h1>
+      <p class="page-subtitle">Reporta cualquier problema que hayas encontrado en un aula de tus reservas</p>
+    </div>
+  </div>
+
+  @if (cargando) {
+    <div class="loading-state">
+      <i class="fas fa-spinner fa-spin"></i> Cargando información...
+    </div>
+  } @else {
+
+    <div class="form-card">
+
+      <!-- Icono decorativo -->
+      <div class="form-icon-header">
+        <div class="icon-circle">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div>
+          <h2 class="form-title">Nueva Incidencia</h2>
+          <p class="form-desc">Completa todos los campos para registrar el reporte</p>
+        </div>
+      </div>
+
+      <div class="form-body">
+
+        <!-- Aula -->
+        <div class="form-group" [class.has-error]="errors.idAula">
+          <label for="aula">
+            <i class="fas fa-door-open"></i> Aula afectada <span class="required">*</span>
+          </label>
+          @if (aulasUnicas.length === 0) {
+            <div class="empty-aulas">
+              <i class="fas fa-info-circle"></i>
+              No tienes reservas con aulas asociadas. Primero realiza una reserva.
+            </div>
+          } @else {
+            <select id="aula" class="form-control" [(ngModel)]="form.idAula">
+              <option value="">— Selecciona el aula —</option>
+              @for (a of aulasUnicas; track a.idAula) {
+                <option [value]="a.idAula">{{ a.codigoAula }}</option>
+              }
+            </select>
+          }
+          @if (errors.idAula) {
+            <small class="error-msg"><i class="fas fa-exclamation-circle"></i> {{ errors.idAula }}</small>
+          }
+        </div>
+
+        <!-- Asunto -->
+        <div class="form-group" [class.has-error]="errors.asunto">
+          <label for="asunto">
+            <i class="fas fa-tag"></i> Asunto <span class="required">*</span>
+          </label>
+          <input
+            id="asunto"
+            type="text"
+            class="form-control"
+            placeholder="Ej: Proyector no funciona"
+            [(ngModel)]="form.asunto"
+            maxlength="100"
+          >
+          <div class="field-footer">
+            @if (errors.asunto) {
+              <small class="error-msg"><i class="fas fa-exclamation-circle"></i> {{ errors.asunto }}</small>
+            } @else {
+              <small class="hint-text">Entre 3 y 100 caracteres</small>
+            }
+            <small class="char-count" [class.limit]="asuntoLength > 90">{{ asuntoLength }}/100</small>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group" [class.has-error]="errors.descripcion">
+          <label for="descripcion">
+            <i class="fas fa-align-left"></i> Descripción detallada <span class="required">*</span>
+          </label>
+          <textarea
+            id="descripcion"
+            class="form-control textarea"
+            placeholder="Describe el problema con el mayor detalle posible: ¿qué ocurrió?, ¿cuándo?, ¿afecta al uso del aula?"
+            [(ngModel)]="form.descripcion"
+            maxlength="1000"
+            rows="5"
+          ></textarea>
+          <div class="field-footer">
+            @if (errors.descripcion) {
+              <small class="error-msg"><i class="fas fa-exclamation-circle"></i> {{ errors.descripcion }}</small>
+            } @else {
+              <small class="hint-text">Entre 5 y 1000 caracteres</small>
+            }
+            <small class="char-count" [class.limit]="descripcionLength > 900">{{ descripcionLength }}/1000</small>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Info banner -->
+      <div class="info-banner">
+        <i class="fas fa-info-circle"></i>
+        Tu incidencia será revisada por el equipo de soporte. La fecha de reporte se registra automáticamente.
+      </div>
+
+      <!-- Acciones -->
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="resetForm()" [disabled]="procesando">
+          <i class="fas fa-undo"></i> Limpiar
+        </button>
+        <button class="btn-primary" (click)="enviar()" [disabled]="procesando || aulasUnicas.length === 0">
+          @if (procesando) {
+            <i class="fas fa-spinner fa-spin"></i> Enviando...
+          } @else {
+            <i class="fas fa-paper-plane"></i> Enviar Reporte
+          }
+        </button>
+      </div>
+
+    </div>
+  }
+
+</div>

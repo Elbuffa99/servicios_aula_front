@@ -1,0 +1,278 @@
+/* ===== SHELL user-dashboard — Cibertec Design System ===== */
+.user-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  z-index: 10;
+  position: sticky;
+  top: 0;
+}
+
+/* Botón hamburguesa — oculto en desktop */
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #334155;
+  font-size: 20px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+  background: #f1f5f9;
+}
+
+/* Contenedor del logo */
+.topbar-logo {
+  background-color: transparent;
+  width: 220px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.topbar-logo .logo {
+  height: 32px;
+}
+
+/* Enlaces (CORREO, AULA VIRTUAL) */
+.topbar-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-left: 24px;
+  flex: 1;
+}
+
+.topbar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #334155;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.topbar-link i {
+  color: #16a34a;
+  font-size: 16px;
+}
+
+.topbar-link:hover {
+  color: #16a34a;
+}
+
+/* Lado derecho */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 24px;
+}
+
+/* Perfil de usuario */
+.topbar-user-wrapper {
+  position: relative;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.bell-container {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  margin-right: 8px;
+}
+
+.bell-icon {
+  font-size: 16px;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  text-transform: uppercase;
+}
+
+.user-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.down-icon {
+  font-size: 12px;
+  color: #16a34a;
+}
+
+/* User Dropdown Menu */
+.user-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e2e8f0;
+  width: 200px;
+  padding: 8px 0;
+  z-index: 50;
+}
+
+.dropdown-item {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f8fafc;
+}
+
+.dropdown-item.text-danger {
+  color: #dc2626;
+}
+
+.dropdown-item.text-danger:hover {
+  background: #fef2f2;
+}
+
+/* ============================================================
+   BODY (Sidebar + Main)
+   ============================================================ */
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.content-area {
+  padding: 32px;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   RESPONSIVE — Móvil (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Mostrar hamburguesa estilo invertido */
+  .hamburger-btn {
+    display: flex;
+    height: 100%;
+    width: 56px;
+    margin-left: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: #004b7b;
+  }
+
+  .hamburger-btn:hover {
+    background-color: #f1f5f9;
+  }
+
+  /* Logo empuja resto a la derecha si desaparecen los links */
+  .topbar-logo {
+    width: auto;
+    padding-left: 8px;
+    margin-right: auto; 
+  }
+
+  /* Ocultar texto de links topbar */
+  .link-text {
+    display: none;
+  }
+
+  /* Ocultar nombre de usuario */
+  .user-name {
+    display: none;
+  }
+
+  .bell-container {
+    margin-right: 0;
+  }
+
+  .topbar-right {
+    gap: 12px;
+    padding-right: 12px;
+  }
+
+  /* Content area con menos padding */
+  .content-area {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-links {
+    display: none;
+  }
+
+  .topbar-logo {
+    width: 120px;
+    /* margin-right: auto ya aplicado en 768px */
+  }
+}

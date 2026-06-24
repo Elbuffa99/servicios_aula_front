@@ -1,0 +1,63 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Aulas</h2>
+    <div class="actions">
+      <input type="text" [(ngModel)]="filtroBusqueda" (input)="filtrar()" placeholder="Buscar aula..." class="search-input">
+      <button class="btn-primary" (click)="abrirModal()"><i class="fas fa-plus"></i> Nueva Aula</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Capacidad</th>
+          <th>Tipo</th>
+          <th>Sede</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of aulasPaginadas">
+          <td><strong>{{ a.codigoAula }}</strong></td>
+          <td>{{ a.capacidad }}</td>
+          <td>{{ a.tipoAula?.descripcion }}</td>
+          <td>{{ a.sede?.nombreSede }}</td>
+          <td>
+            <button class="btn-icon" (click)="abrirModal(a)"><i class="fas fa-edit" style="color: #002d72;"></i></button>
+            <button class="btn-icon" (click)="eliminar(a.idAula!)"><i class="fas fa-trash" style="color: #dc2626;"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="pagination">
+      <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+      <span>Página {{ paginaActual }} de {{ totalPaginas || 1 }}</span>
+      <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual >= totalPaginas">Siguiente</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <h3>{{ esEdicion ? 'Editar Aula' : 'Nueva Aula' }}</h3>
+      <form (submit)="guardarAula()">
+        <input type="text" [(ngModel)]="aulaForm.codigoAula" name="codigo" placeholder="Código de Aula" required>
+        <input type="number" [(ngModel)]="aulaForm.capacidad" name="capacidad" placeholder="Capacidad" required>
+        <select [(ngModel)]="aulaForm.sede.idSede" name="sede" required>
+          <option value="" disabled>Seleccione Sede</option>
+          <option *ngFor="let s of sedes" [value]="s.idSede">{{ s.nombreSede }}</option>
+        </select>
+        <select [(ngModel)]="aulaForm.tipoAula.idTipoAula" name="tipo" required>
+          <option value="" disabled>Seleccione Tipo</option>
+          <option *ngFor="let t of tiposAula" [value]="t.idTipoAula">{{ t.descripcion }}</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

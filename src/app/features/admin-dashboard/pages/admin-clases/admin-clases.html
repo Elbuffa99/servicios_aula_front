@@ -1,0 +1,59 @@
+<div class="aulas-container">
+  <div class="header-actions">
+    <h2>Gestión de Clases</h2>
+    <input type="text" placeholder="Buscar curso..." [(ngModel)]="filtroBusqueda" (input)="paginaActual = 1">
+    <button class="btn-primary" (click)="abrir()">+ Nueva Clase</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr><th>Curso</th><th>Día</th><th>Aula</th><th>Horario</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of paginados">
+            <td>{{ c.nombreCurso }}</td>
+            <td>{{ c.diaSemana }}</td>
+            <td>{{ c.aula?.codigoAula || 'N/A' }}</td>
+            <td>{{ c.horario?.horaInicio }} - {{ c.horario?.horaSalida }}</td>
+            <td>
+              <button class="btn-icon" (click)="abrir(c)"><i class="fas fa-edit" style="color: #004a99;"></i></button>
+              <button class="btn-icon" (click)="eliminar(c.idClases!)"><i class="fas fa-trash" style="color: #d33;"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button class="btn-page" [disabled]="paginaActual === 1" (click)="paginaActual = paginaActual - 1">Anterior</button>
+      <span>Página {{ paginaActual }}</span>
+      <button class="btn-page" [disabled]="paginados.length < itemsPorPagina" (click)="paginaActual = paginaActual + 1">Siguiente</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <h3>{{ form.idClases ? 'Editar' : 'Nueva' }} Clase</h3>
+      <form (ngSubmit)="guardar()">
+        <input type="text" [(ngModel)]="form.nombreCurso" name="curso" placeholder="Nombre" required>
+        <select [(ngModel)]="form.diaSemana" name="dia" required>
+          <option *ngFor="let d of diasSemana" [value]="d">{{d}}</option>
+        </select>
+        <select [(ngModel)]="form.aula" name="aula" [compareWith]="compararAulas" required>
+          <option [ngValue]="{}" disabled>Seleccione Aula</option>
+          <option *ngFor="let a of listaAulas" [ngValue]="a">{{a.codigoAula}}</option>
+        </select>
+        <select [(ngModel)]="form.horario" name="horario" [compareWith]="compararHorarios" required>
+          <option [ngValue]="{}" disabled>Seleccione Horario</option>
+          <option *ngFor="let h of listaHorarios" [ngValue]="h">{{h.horaInicio}} - {{h.horaSalida}}</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+          <button type="submit" class="btn-guardar" [disabled]="procesando">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

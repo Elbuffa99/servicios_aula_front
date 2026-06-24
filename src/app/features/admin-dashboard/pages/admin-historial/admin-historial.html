@@ -1,0 +1,87 @@
+<div class="aulas-container">
+  <!-- Tabs -->
+  <div class="tabs-header">
+    <button [class.active]="tabActive === 'reportes'" (click)="changeTab('reportes')">
+      <i class="fas fa-chart-line"></i> Info General
+    </button>
+    <button [class.active]="tabActive === 'reservas'" (click)="changeTab('reservas')">
+      <i class="fas fa-calendar-check"></i> Reservas
+    </button>
+    <button [class.active]="tabActive === 'incidencias'" (click)="changeTab('incidencias')">
+      <i class="fas fa-exclamation-triangle"></i> Incidencias
+    </button>
+  </div>
+
+  @if (tabActive === 'reportes' && resumen) {
+    <div class="tab-content">
+      <div class="header-actions">
+        <h2>Resumen Ejecutivo</h2>
+        <button class="btn-pdf" (click)="exportarPDF()"><i class="fas fa-file-pdf"></i> Exportar Reporte</button>
+      </div>
+ <div class="dashboard-cards">
+  <div class="card card-total"><h3>Total</h3><p class="number">{{ resumen.totalReservas }}</p></div>
+  <div class="card card-aprobadas"><h3>Aprobadas</h3><p class="number">{{ resumen.reservasAprobadas }}</p></div>
+  <div class="card card-pendientes"><h3>Pendientes</h3><p class="number">{{ resumen.reservasPendientes }}</p></div>
+  <div class="card card-rechazadas"><h3>Rechazadas</h3><p class="number">{{ resumen.reservasRechazadas }}</p></div>
+  <div class="card card-canceladas"><h3>Canceladas</h3><p class="number">{{ resumen.reservasCanceladas }}</p></div>
+</div>
+    </div>
+  }
+
+  <!-- Contenido Reservas -->
+  @if (tabActive === 'reservas') {
+    <div class="tab-content table-container">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead><tr><th>Fecha</th><th>Usuario</th><th>Aula</th><th>Estado</th></tr></thead>
+          <tbody>
+            @for (res of reservasPaginadas; track res.idReserva) {
+              <tr>
+                <td>{{ res.fechaReserva | date:'dd/MM/yyyy' }}</td>
+                <td>{{ res.usuario?.nombreUsuario }} {{ res.usuario?.apellidoUsuario }}</td>
+                <td>{{ res.aula?.codigoAula }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'badge-pendiente': res.estadoReserva?.descripcion === 'Pendiente',
+                    'badge-aprobado': res.estadoReserva?.descripcion === 'Aprobado',
+                    'badge-rechazado': res.estadoReserva?.descripcion === 'Rechazado'
+                  }">{{ res.estadoReserva?.descripcion }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button class="btn-page" [disabled]="pRes === 1" (click)="pRes = pRes - 1">Anterior</button>
+        <span>Página {{ pRes }}</span>
+        <button class="btn-page" [disabled]="reservasPaginadas.length < porPagina" (click)="pRes = pRes + 1">Siguiente</button>
+      </div>
+    </div>
+  }
+
+  @if (tabActive === 'incidencias') {
+    <div class="tab-content table-container">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead><tr><th>Fecha</th><th>Usuario</th><th>Aula</th><th>Asunto</th></tr></thead>
+          <tbody>
+            @for (inc of incidenciasPaginadas; track inc.idIncidencia) {
+              <tr>
+                <td>{{ inc.fechaReporte | date:'dd/MM/yyyy' }}</td>
+                <td>{{ inc.usuario?.nombreUsuario }}</td>
+                <td>{{ inc.aula?.codigoAula }}</td>
+                <td>{{ inc.asunto }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button class="btn-page" [disabled]="pInc === 1" (click)="pInc = pInc - 1">Anterior</button>
+        <span>Página {{ pInc }}</span>
+        <button class="btn-page" [disabled]="incidenciasPaginadas.length < porPagina" (click)="pInc = pInc + 1">Siguiente</button>
+      </div>
+    </div>
+  }
+</div>
